@@ -18,6 +18,7 @@
       --error-color: #ef4444;
       --input-bg-color: #ffffff;
       --shadow-color: rgba(0, 0, 0, 0.05);
+      --secondary-hover: #e5e7eb;
     }
 
     /* 2. Dark Mode */
@@ -32,6 +33,7 @@
         --primary-color: #3b82f6;
         --primary-hover-color: #60a5fa;
         --shadow-color: rgba(0, 0, 0, 0.4);
+        --secondary-hover: #374151;
       }
     }
 
@@ -54,7 +56,7 @@
       background-color: var(--card-bg-color);
       padding: 2.5em;
       border-radius: 16px;
-      box-shadow: 0 10px 40px var(--shadow-color);
+      box-shadow: 0 4px 6px var(--shadow-color);
       width: 100%;
       max-width: 800px;
       border: 1px solid var(--border-color);
@@ -146,6 +148,21 @@
 
     .primary-btn:hover {
       background-color: var(--primary-hover-color);
+    }
+
+    .secondary-btn {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      border: 1px solid var(--border-color);
+    }
+
+    .secondary-btn:hover {
+      background-color: var(--secondary-hover);
+    }
+
+    .secondary-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
     }
 
     /* 6. Feed Row Styles */
@@ -298,7 +315,8 @@
       }
     }
 
-    .toast.hidden {
+    .toast.hidden,
+    .hidden {
       display: none;
     }
 
@@ -360,7 +378,12 @@
     <main>
       <div class="feeds-header">
         <h2 id="feedsHeading">Feeds</h2>
-        <button id="addFeedButton" class="primary-btn" type="button"></button>
+        <div style="display: flex; gap: 8px;">
+          <button id="importBtn" class="secondary-btn" type="button"></button>
+          <button id="exportBtn" class="secondary-btn" type="button"></button>
+          <button id="addFeedButton" class="primary-btn" type="button"></button>
+        </div>
+        <input type="file" id="importFile" accept=".json" class="hidden">
       </div>
 
       <div id="feedsContainer"></div>

@@ -64,5 +64,17 @@
   },
   "optionsUndo": {
     "message": "Annuler"
+  },
+  "optionsBtnImport": {
+    "message": "importer les flux"
+  },
+  "optionsBtnExport": {
+    "message": "exporter les flux"
+  },
+  "optionsImportSuccess": {
+    "message": "Flux importés avec succès !"
+  },
+  "optionsImportError": {
+    "message": "Échec de l'importation. Veuillez vérifier le format du fichier."
   }
 }

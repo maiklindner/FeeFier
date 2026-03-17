@@ -64,5 +64,17 @@
   },
   "optionsUndo": {
     "message": "Rückgängig"
+  },
+  "optionsBtnImport": {
+    "message": "Feeds importieren"
+  },
+  "optionsBtnExport": {
+    "message": "Feeds exportieren"
+  },
+  "optionsImportSuccess": {
+    "message": "Feeds erfolgreich importiert!"
+  },
+  "optionsImportError": {
+    "message": "Import fehlgeschlagen. Bitte prüfe das Dateiformat."
   }
 }

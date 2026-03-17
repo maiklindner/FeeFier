@@ -64,5 +64,17 @@
   },
   "optionsUndo": {
     "message": "元に戻す"
+  },
+  "optionsBtnImport": {
+    "message": "フィードをインポート"
+  },
+  "optionsBtnExport": {
+    "message": "フィードをエクスポート"
+  },
+  "optionsImportSuccess": {
+    "message": "フィードのインポートに成功しました！"
+  },
+  "optionsImportError": {
+    "message": "インポートに失敗しました。ファイル形式を確認してください。"
   }
 }

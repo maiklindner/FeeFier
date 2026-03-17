@@ -64,5 +64,17 @@
   },
   "optionsUndo": {
     "message": "Desfazer"
+  },
+  "optionsBtnImport": {
+    "message": "importar feeds"
+  },
+  "optionsBtnExport": {
+    "message": "exportar feeds"
+  },
+  "optionsImportSuccess": {
+    "message": "Feeds importados com sucesso!"
+  },
+  "optionsImportError": {
+    "message": "Falha na importação. Por favor, verifique o formato do arquivo."
   }
 }

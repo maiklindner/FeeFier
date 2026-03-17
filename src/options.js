@@ -34,6 +34,9 @@ function initLocalization(callback) {
 // DOM DOM elements
 const feedsContainer = document.getElementById('feedsContainer');
 const addFeedButton = document.getElementById('addFeedButton');
+const exportBtn = document.getElementById('exportBtn');
+const importBtn = document.getElementById('importBtn');
+const importFile = document.getElementById('importFile');
 
 let toastTimeout;
 let lastDeletedFeed = null;
@@ -45,6 +48,8 @@ function localizeHtmlPage() {
   document.getElementById('optionsDesc').textContent = getMessage('optionsDesc');
   document.getElementById('feedsHeading').textContent = getMessage('optionsFeedsHeading');
   document.getElementById('addFeedButton').textContent = '+ ' + getMessage('optionsAddFeed');
+  document.getElementById('exportBtn').textContent = getMessage('optionsBtnExport');
+  document.getElementById('importBtn').textContent = getMessage('optionsBtnImport');
 
   document.getElementById('toastUndoBtn').textContent = getMessage('optionsUndo');
   
@@ -231,6 +236,9 @@ function saveOptions(silent = false) {
     }
   });
 
+  // Enable/Disable export button based on feed count
+  exportBtn.disabled = feeds.length === 0;
+
   if (valid) {
     chrome.storage.sync.set({ feeds: feeds }, () => {
       if (!silent) {
@@ -315,6 +323,77 @@ function undoDelete() {
   triggerAutoSave(true); // Silent save
 }
 
+// Export feeds to JSON
+function exportFeeds() {
+  chrome.storage.sync.get(['feeds'], (items) => {
+    const feeds = items.feeds || [];
+    if (feeds.length === 0) return;
+
+    const dataStr = JSON.stringify(feeds, null, 2);
+    const blob = new Blob([dataStr], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `feefier-feeds-${new Date().toISOString().split('T')[0]}.json`;
+    a.click();
+    
+    URL.revokeObjectURL(url);
+  });
+}
+
+// Import feeds from JSON
+function importFeeds(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = (event) => {
+    try {
+      const importedFeeds = JSON.parse(event.target.result);
+      
+      if (!Array.isArray(importedFeeds)) {
+        throw new Error('Invalid format');
+      }
+
+      chrome.storage.sync.get(['feeds'], (items) => {
+        const currentFeeds = items.feeds || [];
+        const newFeeds = [...currentFeeds];
+
+        importedFeeds.forEach(feed => {
+          // Basic validation
+          if (feed.url && feed.interval >= 1) {
+            // ID collision check
+            let finalId = feed.id || Date.now().toString() + Math.random().toString(36).substr(2, 5);
+            if (newFeeds.some(f => f.id === finalId)) {
+              finalId = Date.now().toString() + Math.random().toString(36).substr(2, 5);
+            }
+            
+            newFeeds.push({
+              id: finalId,
+              name: feed.name || '',
+              url: feed.url,
+              interval: parseInt(feed.interval, 10),
+              enabled: feed.enabled !== false
+            });
+          }
+        });
+
+        chrome.storage.sync.set({ feeds: newFeeds }, () => {
+          restoreOptions();
+          showToast(getMessage('optionsImportSuccess'));
+        });
+      });
+    } catch (err) {
+      console.error(err);
+      showToast(getMessage('optionsImportError'));
+    }
+    // Reset file input
+    importFile.value = '';
+  };
+  reader.readAsText(file);
+}
+
 // Restore options
 function restoreOptions() {
   chrome.storage.sync.get(['feeds'], (items) => {
@@ -328,6 +407,10 @@ function restoreOptions() {
 
     feedsContainer.innerHTML = '';
     feeds.forEach(feed => createFeedRow(feed));
+    
+    // Initial export button state
+    const hasValidFeeds = feeds.some(f => f.url && f.url.trim() !== '');
+    exportBtn.disabled = !hasValidFeeds;
   });
 }
 
@@ -342,6 +425,10 @@ document.addEventListener('DOMContentLoaded', () => {
       initLocalization();
     });
   });
+
+  exportBtn.addEventListener('click', exportFeeds);
+  importBtn.addEventListener('click', () => importFile.click());
+  importFile.addEventListener('change', importFeeds);
 });
 
 addFeedButton.addEventListener('click', () => createFeedRow(undefined, true));
