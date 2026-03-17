@@ -44,7 +44,7 @@ let lastDeletedFeed = null;
 // Localize page
 function localizeHtmlPage() {
   document.getElementById('pageTitle').textContent = getMessage('optionsTitle');
-  document.getElementById('optionsH1').textContent = getMessage('optionsTitle');
+  document.getElementById('titleH1').textContent = getMessage('optionsTitle');
   document.getElementById('optionsDesc').textContent = getMessage('optionsDesc');
   document.getElementById('feedsHeading').textContent = getMessage('optionsFeedsHeading');
   document.getElementById('addFeedButton').textContent = '+ ' + getMessage('optionsAddFeed');
