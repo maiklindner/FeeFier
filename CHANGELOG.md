@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.5] - 2026-03-17
+
+### Added
+- **Drag and Drop Reordering**: You can now reorder your feeds directly on the options page by dragging and dropping the feed rows.
+- **Automatic Saving**: The new order is automatically saved as soon as you release the feed at its new position.
+
 ## [1.4] - 2026-03-12
 
 ### Added

@@ -58,6 +58,32 @@ const feedsContainer = document.getElementById('feedsContainer');
 const addFeedButton = document.getElementById('addFeedButton');
 const statusDiv = document.getElementById('status');
 
+// Drag and Drop Logic
+feedsContainer.addEventListener('dragover', e => {
+  e.preventDefault();
+  const draggingElement = document.querySelector('.dragging');
+  const afterElement = getDragAfterElement(feedsContainer, e.clientY);
+  if (afterElement == null) {
+    feedsContainer.appendChild(draggingElement);
+  } else {
+    feedsContainer.insertBefore(draggingElement, afterElement);
+  }
+});
+
+function getDragAfterElement(container, y) {
+  const draggableElements = [...container.querySelectorAll('.feed-row:not(.dragging)')];
+
+  return draggableElements.reduce((closest, child) => {
+    const box = child.getBoundingClientRect();
+    const offset = y - box.top - box.height / 2;
+    if (offset < 0 && offset > closest.offset) {
+      return { offset: offset, element: child };
+    } else {
+      return closest;
+    }
+  }, { offset: Number.NEGATIVE_INFINITY }).element;
+}
+
 let saveTimeout;
 
 // Create feed row in DOM
@@ -65,6 +91,16 @@ function createFeedRow(feed = { id: '', name: '', url: '', interval: 15, enabled
   const row = document.createElement('div');
   row.className = 'feed-row';
   row.dataset.id = feed.id || Date.now().toString() + Math.random().toString(36).substr(2, 5);
+  row.draggable = true;
+
+  row.addEventListener('dragstart', () => {
+    row.classList.add('dragging');
+  });
+
+  row.addEventListener('dragend', () => {
+    row.classList.remove('dragging');
+    triggerAutoSave();
+  });
 
   const nameGroup = document.createElement('div');
   nameGroup.className = 'feed-input-group name-group';
