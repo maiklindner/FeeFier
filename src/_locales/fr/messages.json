@@ -58,5 +58,11 @@
   },
   "optionsRemoveFeed": {
     "message": "Supprimer"
+  },
+  "optionsFeedDeleted": {
+    "message": "Flux supprimé"
+  },
+  "optionsUndo": {
+    "message": "Annuler"
   }
 }

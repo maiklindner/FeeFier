@@ -58,5 +58,11 @@
   },
   "optionsRemoveFeed": {
     "message": "Löschen"
+  },
+  "optionsFeedDeleted": {
+    "message": "Feed gelöscht"
+  },
+  "optionsUndo": {
+    "message": "Rückgängig"
   }
 }

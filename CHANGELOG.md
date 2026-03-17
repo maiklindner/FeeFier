@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.5.1] - 2026-03-17
+
+### Added
+- **Undo Deletion**: Feeds are now removed immediately with a non-blocking "Undo" option, significantly improving the user experience.
+- **Unified Notifications**: All status messages (save, error, undo) now use a modern, animated toast notification system.
+
 ## [1.5] - 2026-03-17
 
 ### Added

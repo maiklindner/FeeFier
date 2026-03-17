@@ -58,5 +58,11 @@
   },
   "optionsRemoveFeed": {
     "message": "削除"
+  },
+  "optionsFeedDeleted": {
+    "message": "フィードを削除しました"
+  },
+  "optionsUndo": {
+    "message": "元に戻す"
   }
 }

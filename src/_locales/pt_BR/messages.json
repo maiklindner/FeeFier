@@ -58,5 +58,11 @@
   },
   "optionsRemoveFeed": {
     "message": "Excluir"
+  },
+  "optionsFeedDeleted": {
+    "message": "Feed excluído"
+  },
+  "optionsUndo": {
+    "message": "Desfazer"
   }
 }

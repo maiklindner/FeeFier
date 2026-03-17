@@ -58,5 +58,11 @@
   },
   "optionsRemoveFeed": {
     "message": "删除"
+  },
+  "optionsFeedDeleted": {
+    "message": "Feed 已删除"
+  },
+  "optionsUndo": {
+    "message": "撤销"
   }
 }

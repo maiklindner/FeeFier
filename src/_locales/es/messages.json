@@ -58,5 +58,11 @@
   },
   "optionsRemoveFeed": {
     "message": "Eliminar"
+  },
+  "optionsFeedDeleted": {
+    "message": "Feed eliminado"
+  },
+  "optionsUndo": {
+    "message": "Deshacer"
   }
 }

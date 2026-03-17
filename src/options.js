@@ -31,6 +31,13 @@ function initLocalization(callback) {
   });
 }
 
+// DOM DOM elements
+const feedsContainer = document.getElementById('feedsContainer');
+const addFeedButton = document.getElementById('addFeedButton');
+
+let toastTimeout;
+let lastDeletedFeed = null;
+
 // Localize page
 function localizeHtmlPage() {
   document.getElementById('pageTitle').textContent = getMessage('optionsTitle');
@@ -38,6 +45,8 @@ function localizeHtmlPage() {
   document.getElementById('optionsDesc').textContent = getMessage('optionsDesc');
   document.getElementById('feedsHeading').textContent = getMessage('optionsFeedsHeading');
   document.getElementById('addFeedButton').textContent = '+ ' + getMessage('optionsAddFeed');
+
+  document.getElementById('toastUndoBtn').textContent = getMessage('optionsUndo');
   
   document.querySelectorAll('.feed-row').forEach(row => {
     const labels = row.querySelectorAll('label');
@@ -52,11 +61,6 @@ function localizeHtmlPage() {
     }
   });
 }
-
-// DOM DOM elements
-const feedsContainer = document.getElementById('feedsContainer');
-const addFeedButton = document.getElementById('addFeedButton');
-const statusDiv = document.getElementById('status');
 
 // Drag and Drop Logic
 feedsContainer.addEventListener('dragover', e => {
@@ -87,7 +91,7 @@ function getDragAfterElement(container, y) {
 let saveTimeout;
 
 // Create feed row in DOM
-function createFeedRow(feed = { id: '', name: '', url: '', interval: 15, enabled: true }, atTop = false) {
+function createFeedRow(feed = { id: '', name: '', url: '', interval: 15, enabled: true }, atTop = false, atIndex = -1) {
   const row = document.createElement('div');
   row.className = 'feed-row';
   row.dataset.id = feed.id || Date.now().toString() + Math.random().toString(36).substr(2, 5);
@@ -155,8 +159,7 @@ function createFeedRow(feed = { id: '', name: '', url: '', interval: 15, enabled
   removeBtn.className = 'remove-btn';
   removeBtn.textContent = getMessage('optionsRemoveFeed');
   removeBtn.onclick = () => {
-    row.remove();
-    triggerAutoSave();
+    deleteFeed(row);
   };
 
   const toggleWrapper = document.createElement('div');
@@ -194,19 +197,20 @@ function createFeedRow(feed = { id: '', name: '', url: '', interval: 15, enabled
   if (atTop) {
     feedsContainer.prepend(row);
     urlInput.focus();
+  } else if (atIndex !== -1 && atIndex < feedsContainer.children.length) {
+    feedsContainer.insertBefore(row, feedsContainer.children[atIndex]);
   } else {
     feedsContainer.appendChild(row);
   }
 }
 
 // Save options
-// Save options
-function triggerAutoSave() {
+function triggerAutoSave(silent = false) {
   clearTimeout(saveTimeout);
-  saveTimeout = setTimeout(saveOptions, 500); // 500ms debounce
+  saveTimeout = setTimeout(() => saveOptions(silent), 500); // 500ms debounce
 }
 
-function saveOptions() {
+function saveOptions(silent = false) {
   const rows = document.querySelectorAll('.feed-row');
   const feeds = [];
   let valid = true;
@@ -229,16 +233,86 @@ function saveOptions() {
 
   if (valid) {
     chrome.storage.sync.set({ feeds: feeds }, () => {
-      statusDiv.textContent = getMessage('statusSaved');
-      statusDiv.style.color = 'var(--success-color, green)';
-      setTimeout(() => {
-        statusDiv.textContent = '';
-      }, 1500);
+      if (!silent) {
+        showToast(getMessage('statusSaved'));
+      }
     });
   } else {
-    statusDiv.textContent = getMessage('statusError');
-    statusDiv.style.color = 'var(--error-color, red)';
+    showToast(getMessage('statusError'));
   }
+}
+
+// Show a unified toast notification
+function showToast(message, duration = 5000, undoAction = null) {
+  const toast = document.getElementById('toast');
+  const toastMessage = document.getElementById('toastMessage');
+  const toastUndoBtn = document.getElementById('toastUndoBtn');
+
+  // Clear previous timeout
+  if (toastTimeout) {
+    clearTimeout(toastTimeout);
+  }
+
+  toastMessage.textContent = message;
+
+  if (undoAction) {
+    toastUndoBtn.classList.remove('hidden');
+    toastUndoBtn.onclick = () => {
+      undoAction();
+      hideToast();
+    };
+  } else {
+    toastUndoBtn.classList.add('hidden');
+  }
+
+  toast.classList.remove('hidden');
+
+  toastTimeout = setTimeout(hideToast, duration);
+}
+
+function hideToast() {
+  const toast = document.getElementById('toast');
+  toast.classList.add('hidden');
+  if (toastTimeout) {
+    clearTimeout(toastTimeout);
+    toastTimeout = null;
+  }
+}
+
+// Delete a feed with Undo
+function deleteFeed(row) {
+  const id = row.dataset.id;
+  const index = [...feedsContainer.children].indexOf(row);
+
+  // Save for undo
+  lastDeletedFeed = {
+    data: {
+      id: id,
+      name: row.querySelector('.feed-name').value,
+      url: row.querySelector('.feed-url').value,
+      interval: row.querySelector('.feed-interval').value,
+      enabled: row.querySelector('.feed-enabled').checked
+    },
+    index: index
+  };
+
+  // Remove immediately from UI
+  row.remove();
+  triggerAutoSave(true); // Silent save
+
+  // Show toast with undo
+  showToast(getMessage('optionsFeedDeleted'), 5000, undoDelete);
+}
+
+// Undo the deletion
+function undoDelete() {
+  if (!lastDeletedFeed) return;
+
+  // Restore feed
+  createFeedRow(lastDeletedFeed.data, false, lastDeletedFeed.index);
+  lastDeletedFeed = null;
+
+  triggerAutoSave(true); // Silent save
 }
 
 // Restore options
