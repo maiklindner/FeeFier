@@ -161,6 +161,15 @@
       gap: 1.25em;
       align-items: stretch;
       transition: all 0.3s ease;
+      cursor: grab;
+      user-select: none;
+    }
+
+    .feed-row.dragging {
+      opacity: 0.5;
+      cursor: grabbing;
+      background: var(--card-bg-color);
+      border-style: dashed;
     }
 
     .feed-row-bottom {
