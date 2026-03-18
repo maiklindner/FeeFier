@@ -9,6 +9,12 @@
         { "name": "Nature & Environment", "url": "https://example.com/nature.xml" },
         { "name": "Space Exploration", "url": "https://example.com/space.xml" }
       ],
+      "screenshotSamples": [
+        { "name": "Tech & Innovation", "url": "https://example.com/tech.xml" },
+        { "name": "Nature & Environment", "url": "https://example.com/nature.xml" },
+        { "name": "Space Exploration", "url": "https://example.com/space.xml" },
+        { "name": "Cooking & Recipes", "url": "https://example.com/recipes.xml" }
+      ],
       "script": [
         "Manage all your favorite feeds in one clean place.",
         "Stay updated on your schedule with customizable refresh intervals.",
@@ -26,6 +32,12 @@
       "otherFeeds": [
         { "name": "Natur & Umwelt", "url": "https://example.com/natur.xml" },
         { "name": "Weltraumforschung", "url": "https://example.com/weltraum.xml" }
+      ],
+      "screenshotSamples": [
+        { "name": "Technik & Innovation", "url": "https://example.com/tech.xml" },
+        { "name": "Natur & Umwelt", "url": "https://example.com/natur.xml" },
+        { "name": "Weltraumforschung", "url": "https://example.com/weltraum.xml" },
+        { "name": "Kochen & Rezepte", "url": "https://example.com/rezepte.xml" }
       ],
       "script": [
         " Verwalte all deine Feeds an einem zentralen Ort.",
@@ -45,6 +57,12 @@
         { "name": "自然と環境", "url": "https://example.com/nature.xml" },
         { "name": "宇宙探査", "url": "https://example.com/space.xml" }
       ],
+      "screenshotSamples": [
+        { "name": "テクノロジーとイノベーション", "url": "https://example.com/tech.xml" },
+        { "name": "自然と環境", "url": "https://example.com/nature.xml" },
+        { "name": "宇宙探査", "url": "https://example.com/space.xml" },
+        { "name": "料理とレシピ", "url": "https://example.com/cooking.xml" }
+      ],
       "script": [
         "すべてのフィードを1か所で管理できます。",
         "スケジュールに合わせて最新情報をチェックしましょう。",
@@ -62,6 +80,12 @@
       "otherFeeds": [
         { "name": "Naturaleza y Medio Ambiente", "url": "https://example.com/nature.xml" },
         { "name": "Exploración Espacial", "url": "https://example.com/space.xml" }
+      ],
+      "screenshotSamples": [
+        { "name": "Tecnología e Innovación", "url": "https://example.com/tech.xml" },
+        { "name": "Naturaleza y Ambiente", "url": "https://example.com/natur.xml" },
+        { "name": "Exploración Espacial", "url": "https://example.com/espacio.xml" },
+        { "name": "Cocina y Recetas", "url": "https://example.com/cocina.xml" }
       ],
       "script": [
         "Gestiona todos tus feeds favoritos en un solo lugar.",
@@ -81,6 +105,12 @@
         { "name": "Nature et Environnement", "url": "https://example.com/nature.xml" },
         { "name": "Exploration Spatiale", "url": "https://example.com/space.xml" }
       ],
+      "screenshotSamples": [
+        { "name": "Technologie et Innovation", "url": "https://example.com/tech.xml" },
+        { "name": "Nature et Environnement", "url": "https://example.com/nature.xml" },
+        { "name": "Exploration Spatiale", "url": "https://example.com/espace.xml" },
+        { "name": "Cuisine et Recettes", "url": "https://example.com/cuisine.xml" }
+      ],
       "script": [
         "Gérez tous vos flux préférés en un seul endroit.",
         "Restez à jour selon votre emploi du temps avec des intervalles personnalisables.",
@@ -99,6 +129,12 @@
         { "name": "Natureza e Meio Ambiente", "url": "https://example.com/nature.xml" },
         { "name": "Exploração Espacial", "url": "https://example.com/space.xml" }
       ],
+      "screenshotSamples": [
+        { "name": "Tecnologia e Inovação", "url": "https://example.com/tech.xml" },
+        { "name": "Natureza e Meio Ambiente", "url": "https://example.com/natureza.xml" },
+        { "name": "Exploração Espacial", "url": "https://example.com/espaco.xml" },
+        { "name": "Culinária e Receitas", "url": "https://example.com/culinaria.xml" }
+      ],
       "script": [
         "Gerencie todos os seus feeds favoritos em um só lugar.",
         "Mantenha-se atualizado no seu horário com intervalos personalizáveis.",
@@ -116,6 +152,12 @@
       "otherFeeds": [
         { "name": "自然与环境", "url": "https://example.com/nature.xml" },
         { "name": "太空探索", "url": "https://example.com/space.xml" }
+      ],
+      "screenshotSamples": [
+        { "name": "科技与创新", "url": "https://example.com/tech.xml" },
+        { "name": "自然与环境", "url": "https://example.com/nature.xml" },
+        { "name": "太空探索", "url": "https://example.com/space.xml" },
+        { "name": "烹饪与食谱", "url": "https://example.com/cooking.xml" }
       ],
       "script": [
         "在一个整洁的地方管理你所有喜爱的订阅源。",
