@@ -1,3 +1,5 @@
+importScripts('utils.js');
+
 // Extension installation listener
 chrome.runtime.onInstalled.addListener(() => {
   console.log('Feed Notifier installed or updated.');
@@ -120,7 +122,7 @@ async function checkFeed(feed) {
       if (!linkMatch) {
          linkMatch = itemContent.match(/<link>([\s\S]*?)<\/link>/i);
       }
-      const link = linkMatch ? linkMatch[1].trim() : '';
+      const link = linkMatch ? decodeHTMLEntities(linkMatch[1].trim()) : '';
 
       // Extract title
       let title = 'No Title';
@@ -132,7 +134,7 @@ async function checkFeed(feed) {
         if (cdataMatch && cdataMatch[1]) {
           title = cdataMatch[1];
         }
-        title = title.trim();
+        title = decodeHTMLEntities(title.trim());
       }
 
       if (link) {
