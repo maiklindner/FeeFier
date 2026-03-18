@@ -1,6 +1,6 @@
 {
   "extName": {
-    "message": "FeeFier - フィード通知"
+    "message": "FeeFier"
   },
   "extDescription": {
     "message": "フィードURLを監視し、更新に関する通知を送信します。"
@@ -47,8 +47,8 @@
   "notificationBody": {
     "message": "新しいメッセージまたは変更されたメッセージがあります。"
   },
-  "optionsDesc": {
-    "message": "ここでフィードのサブスクリプションを管理します。"
+  "optionsDescription": {
+    "message": "ここでフィードのサブスクリプションと通知設定を管理します。"
   },
   "optionsFeedsHeading": {
     "message": "あなたのフィード"

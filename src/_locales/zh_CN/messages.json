@@ -1,6 +1,6 @@
 {
   "extName": {
-    "message": "FeeFier - 订阅通知器"
+    "message": "FeeFier"
   },
   "extDescription": {
     "message": "监控订阅源的 URL，并在有更新时发送通知。"
@@ -47,8 +47,8 @@
   "notificationBody": {
     "message": "有新的或已修改的消息。"
   },
-  "optionsDesc": {
-    "message": "在此处管理您的 feed 订阅。"
+  "optionsDescription": {
+    "message": "在此处管理您的 feed 订阅和通知设置。"
   },
   "optionsFeedsHeading": {
     "message": "您的 Feed"
@@ -66,10 +66,10 @@
     "message": "撤销"
   },
   "optionsBtnImport": {
-    "message": "导入 feed"
+    "message": "导入 Feed"
   },
   "optionsBtnExport": {
-    "message": "导出 feed"
+    "message": "导出 Feed"
   },
   "optionsImportSuccess": {
     "message": "Feed 导入成功！"

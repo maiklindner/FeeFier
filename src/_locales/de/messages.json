@@ -1,6 +1,6 @@
 {
   "extName": {
-    "message": "FeeFier - Feed Notifier"
+    "message": "FeeFier"
   },
   "extDescription": {
     "message": "Überwacht eine Feed-URL und sendet eine Benachrichtigung bei Aktualisierungen."
@@ -47,8 +47,8 @@
   "notificationBody": {
     "message": "Es gibt neue oder geänderte Nachrichten."
   },
-  "optionsDesc": {
-    "message": "Verwalte hier deine abonnierten Feeds."
+  "optionsDescription": {
+    "message": "Verwalte hier deine Feed-Abonnements und Benachrichtigungseinstellungen."
   },
   "optionsFeedsHeading": {
     "message": "Deine Feeds"

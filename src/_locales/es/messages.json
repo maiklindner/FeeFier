@@ -1,6 +1,6 @@
 {
   "extName": {
-    "message": "FeeFier - Notificador de Feed"
+    "message": "FeeFier"
   },
   "extDescription": {
     "message": "Monitoriza una URL de feed y envía una notificación cuando hay actualizaciones."
@@ -47,8 +47,8 @@
   "notificationBody": {
     "message": "Hay mensajes nuevos o modificados."
   },
-  "optionsDesc": {
-    "message": "Administra aquí tus suscripciones de feeds."
+  "optionsDescription": {
+    "message": "Administra aquí tus suscripciones de feeds y configuraciones de notificación."
   },
   "optionsFeedsHeading": {
     "message": "Tus Feeds"
@@ -66,10 +66,10 @@
     "message": "Deshacer"
   },
   "optionsBtnImport": {
-    "message": "importar feeds"
+    "message": "Importar Feeds"
   },
   "optionsBtnExport": {
-    "message": "exportar feeds"
+    "message": "Exportar Feeds"
   },
   "optionsImportSuccess": {
     "message": "¡Feeds importados con éxito!"

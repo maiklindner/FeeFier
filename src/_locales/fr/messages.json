@@ -1,6 +1,6 @@
 {
   "extName": {
-    "message": "FeeFier - Notificateur de Flux"
+    "message": "FeeFier"
   },
   "extDescription": {
     "message": "Surveille l'URL d'un flux et envoie une notification lors des mises à jour."
@@ -47,8 +47,8 @@
   "notificationBody": {
     "message": "Il y a de nouveaux messages ou des messages modifiés."
   },
-  "optionsDesc": {
-    "message": "Gérez ici vos abonnements aux flux."
+  "optionsDescription": {
+    "message": "Gérez ici vos abonnements aux flux et les paramètres de notification."
   },
   "optionsFeedsHeading": {
     "message": "Vos Flux"
@@ -66,10 +66,10 @@
     "message": "Annuler"
   },
   "optionsBtnImport": {
-    "message": "importer les flux"
+    "message": "Importer les flux"
   },
   "optionsBtnExport": {
-    "message": "exporter les flux"
+    "message": "Exporter les flux"
   },
   "optionsImportSuccess": {
     "message": "Flux importés avec succès !"
