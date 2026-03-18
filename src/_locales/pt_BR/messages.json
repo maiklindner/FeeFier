@@ -76,5 +76,11 @@
   },
   "optionsImportError": {
     "message": "Falha na importação. Por favor, verifique o formato do arquivo."
+  },
+  "optionsOpenInBackgroundLabel": {
+    "message": "Abrir links em segundo plano"
+  },
+  "optionsOpenInBackgroundDesc": {
+    "message": "Quando ativado, os links da lista serão abertos em segundo plano por padrão."
   }
 }

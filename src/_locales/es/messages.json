@@ -75,6 +75,12 @@
     "message": "¡Feeds importados con éxito!"
   },
   "optionsImportError": {
-    "message": "Error al importar. Por favor, compruebe el formato del archivo."
+    "message": "Error al importar. Compruebe el formato del archivo."
+  },
+  "optionsOpenInBackgroundLabel": {
+    "message": "Abrir enlaces en segundo plano"
+  },
+  "optionsOpenInBackgroundDesc": {
+    "message": "Cuando está habilitado, los enlaces de la lista se abrirán en segundo plano de forma predeterminada."
   }
 }

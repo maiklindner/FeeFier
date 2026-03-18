@@ -76,5 +76,11 @@
   },
   "optionsImportError": {
     "message": "インポートに失敗しました。ファイル形式を確認してください。"
+  },
+  "optionsOpenInBackgroundLabel": {
+    "message": "リンクをバックグラウンドで開く"
+  },
+  "optionsOpenInBackgroundDesc": {
+    "message": "有効にすると、リストのリンクはデフォルトでバックグラウンドで開かれます。"
   }
 }

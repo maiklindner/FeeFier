@@ -76,5 +76,11 @@
   },
   "optionsImportError": {
     "message": "导入失败。请检查文件格式。"
+  },
+  "optionsOpenInBackgroundLabel": {
+    "message": "在后台打开链接"
+  },
+  "optionsOpenInBackgroundDesc": {
+    "message": "启用后，列表中的链接将默认在后台打开。"
   }
 }

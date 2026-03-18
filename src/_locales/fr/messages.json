@@ -76,5 +76,11 @@
   },
   "optionsImportError": {
     "message": "Échec de l'importation. Veuillez vérifier le format du fichier."
+  },
+  "optionsOpenInBackgroundLabel": {
+    "message": "Ouvrir les liens en arrière-plan"
+  },
+  "optionsOpenInBackgroundDesc": {
+    "message": "Lorsqu'elle est activée, les liens de la liste s'ouvriront en arrière-plan par défaut."
   }
 }

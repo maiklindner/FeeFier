@@ -115,34 +115,36 @@ input[type="number"]:focus {
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary-color) 20%, transparent);
 }
 
-.settings-section {
-  background-color: var(--secondary-bg);
-  border: 1px solid var(--border-color);
-  border-radius: 12px;
-  padding: 1.5em;
-  margin-bottom: 2em;
-}
-
 .setting-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 2em;
+  margin-bottom: 2em;
+  padding-bottom: 1.5em;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.setting-row:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
 }
 
 .setting-info {
-  flex-grow: 1;
+  flex: 1;
+  padding-right: 1.5em;
 }
 
-.setting-info label {
-  margin-bottom: 4px;
+.setting-title {
+  font-weight: 600;
+  font-size: 1.1em;
+  margin-bottom: 0.4em;
 }
 
-.setting-hint {
-  font-size: 0.85em;
+.setting-desc {
+  font-size: 0.9em;
   color: var(--label-color);
-  margin: 0;
-  opacity: 0.8;
+  line-height: 1.4;
 }
 
 .feeds-header {
@@ -270,8 +272,9 @@ button.remove-btn:hover {
 .switch {
   position: relative;
   display: inline-block;
-  width: 40px;
-  height: 20px;
+  width: 50px;
+  height: 28px;
+  flex-shrink: 0;
 }
 
 .switch input {
@@ -288,28 +291,33 @@ button.remove-btn:hover {
   right: 0;
   bottom: 0;
   background-color: var(--border-color);
-  transition: .4s;
-  border-radius: 20px;
+  transition: .3s;
+  border-radius: 34px;
 }
 
 .slider:before {
   position: absolute;
   content: "";
-  height: 16px;
-  width: 16px;
-  left: 2px;
-  bottom: 2px;
+  height: 20px;
+  width: 20px;
+  left: 4px;
+  bottom: 4px;
   background-color: white;
-  transition: .4s;
+  transition: .3s;
   border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 
 input:checked + .slider {
   background-color: var(--primary-color);
 }
 
+input:focus + .slider {
+  box-shadow: 0 0 1px var(--primary-color);
+}
+
 input:checked + .slider:before {
-  transform: translateX(20px);
+  transform: translateX(22px);
 }
 
 .toast {
