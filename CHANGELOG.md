@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.6.0] - 2026-03-18
+
+### Added
+- **Intelligent Link Opening**: Links now open in the foreground by default. Background opening is still supported via Ctrl/Cmd key or middle-click.
+- **Customizable Link Behavior**: New option "Open links in background" allows you to revert to the old background-only behavior.
+- **Full Localization**: Added comprehensive translations for all features in 7 languages (EN, DE, ES, FR, JA, PT, ZH).
+
+### Changed
+- **UI Standardization**: Modernized the options page UI with refined "Premium" toggle switches (50x28px with shadow), matching the updated extension suite style.
+- **Layout Refinement**: Standardized the settings layout with better spacing and visual hierarchy.
+
 ## [1.5.1] - 2026-03-17
 
 ### Added
