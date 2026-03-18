@@ -77,7 +77,13 @@ function renderList() {
 
     const div = document.createElement('div');
     div.className = 'feed-item';
-    div.onclick = () => handleItemClick(index, item.link);
+    div.addEventListener('click', (e) => handleItemClick(index, item.link, e));
+    div.addEventListener('auxclick', (e) => {
+      if (e.button === 1) {
+        e.preventDefault();
+        handleItemClick(index, item.link, e);
+      }
+    });
     
     const title = document.createElement('div');
     title.className = 'feed-item-title';
@@ -104,9 +110,14 @@ function renderList() {
   });
 }
 
-function handleItemClick(index, url) {
+function handleItemClick(index, url, event) {
   if (url) {
-    chrome.tabs.create({ url: url, active: false });
+    chrome.storage.sync.get({ openInBackground: false }, (data) => {
+      const isModifier = event && (event.button === 1 || event.ctrlKey || event.metaKey);
+      const shouldOpenInBackground = data.openInBackground || isModifier;
+      
+      chrome.tabs.create({ url: url, active: !shouldOpenInBackground });
+    });
   }
   
   // Remove item from array and save

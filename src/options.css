@@ -115,6 +115,36 @@ input[type="number"]:focus {
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary-color) 20%, transparent);
 }
 
+.settings-section {
+  background-color: var(--secondary-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 1.5em;
+  margin-bottom: 2em;
+}
+
+.setting-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2em;
+}
+
+.setting-info {
+  flex-grow: 1;
+}
+
+.setting-info label {
+  margin-bottom: 4px;
+}
+
+.setting-hint {
+  font-size: 0.85em;
+  color: var(--label-color);
+  margin: 0;
+  opacity: 0.8;
+}
+
 .feeds-header {
   display: flex;
   justify-content: space-between;

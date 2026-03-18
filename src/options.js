@@ -50,6 +50,8 @@ function localizeHtmlPage() {
   document.getElementById('addFeedButton').textContent = '+ ' + getMessage('optionsAddFeed');
   document.getElementById('exportBtn').textContent = getMessage('optionsBtnExport');
   document.getElementById('importBtn').textContent = getMessage('optionsBtnImport');
+  document.getElementById('openInBackgroundLabel').textContent = getMessage('optionsOpenInBackgroundLabel');
+  document.getElementById('openInBackgroundDesc').textContent = getMessage('optionsOpenInBackgroundDesc');
 
   document.getElementById('toastUndoBtn').textContent = getMessage('optionsUndo');
   
@@ -239,8 +241,10 @@ function saveOptions(silent = false) {
   // Enable/Disable export button based on feed count
   exportBtn.disabled = feeds.length === 0;
 
+  const openInBackground = document.getElementById('openInBackground').checked;
+
   if (valid) {
-    chrome.storage.sync.set({ feeds: feeds }, () => {
+    chrome.storage.sync.set({ feeds: feeds, openInBackground: openInBackground }, () => {
       if (!silent) {
         showToast(getMessage('statusSaved'));
       }
@@ -396,7 +400,9 @@ function importFeeds(e) {
 
 // Restore options
 function restoreOptions() {
-  chrome.storage.sync.get(['feeds'], (items) => {
+  chrome.storage.sync.get(['feeds', 'openInBackground'], (items) => {
+    document.getElementById('openInBackground').checked = items.openInBackground || false;
+
     // Default empty row
     const feeds = items.feeds || [{ id: Date.now().toString(), url: '', interval: 15, enabled: true }];
 
@@ -425,6 +431,8 @@ document.addEventListener('DOMContentLoaded', () => {
       initLocalization();
     });
   });
+
+  document.getElementById('openInBackground').addEventListener('change', () => triggerAutoSave());
 
   exportBtn.addEventListener('click', exportFeeds);
   importBtn.addEventListener('click', () => importFile.click());

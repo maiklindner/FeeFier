@@ -76,5 +76,11 @@
   },
   "optionsImportError": {
     "message": "Import fehlgeschlagen. Bitte prüfe das Dateiformat."
+  },
+  "optionsOpenInBackgroundLabel": {
+    "message": "Links im Hintergrund öffnen"
+  },
+  "optionsOpenInBackgroundDesc": {
+    "message": "Wenn aktiviert, werden Links aus der Liste standardmäßig im Hintergrund geöffnet."
   }
 }
