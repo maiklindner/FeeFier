@@ -12,6 +12,7 @@
 ## Features
 
 * **Feed Naming:** Assign descriptive names to your feeds to identify them at a glance.
+* **Drag & Drop Reordering:** Easily organize your feed priority by dragging and dropping items in the settings list.
 * **Monitors any Feed:** Works with any valid RSS or Atom feed URL.
 * **Customizable Interval:** Set how often the feed should be checked.
 * **Individual Toggles:** Pause monitoring for specific feeds anytime without deleting them.
