@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.6.2] - 2026-03-20
+
+### Changed
+- **Graceful Error Handling**: Replaced loud `console.error` logs with silent `console.warn` for transient external issues (e.g., network timeouts, expired sessions, 403 Forbidden).
+- **Internal Status Tracking**: Implemented a background health tracker (`feedStatuses`) in storage to record fetch errors without triggering browser-level "Extension Error" alerts.
+
 ## [1.6.1] - 2026-03-18
 
 ### Changed

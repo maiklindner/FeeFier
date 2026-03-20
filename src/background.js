@@ -102,7 +102,8 @@ async function checkFeed(feed) {
   try {
     const response = await fetch(url, { cache: 'no-store' });
     if (!response.ok) {
-      console.error(`Error fetching feed ${feed.id}:`, response.status);
+      console.warn(`[FeeFier] Expected external error fetching feed ${feed.id}:`, response.status);
+      updateFeedStatus(feed.id, `HTTP ${response.status}`);
       return;
     }
     const feedText = await response.text();
@@ -195,11 +196,26 @@ async function checkFeed(feed) {
     } else {
       console.log(`No genuinely new items for ${feed.id}.`);
     }
+    // Success path: clear any previous error status
+    updateFeedStatus(feed.id, 'ok');
   } catch (error) {
-    console.error(`--- ERROR PROCESSING FEED ${feed.id} ---`);
-    console.error('Error object:', error);
-    console.error('Attempted URL:', url);
+    console.warn(`[FeeFier] Transient fetch error for feed ${feed.id}:`, error.message);
+    updateFeedStatus(feed.id, error.message || 'Fetch failed');
   }
+}
+
+/**
+ * Persists the health status of a feed for UI visibility.
+ */
+function updateFeedStatus(feedId, status) {
+  chrome.storage.local.get(['feedStatuses'], (data) => {
+    const statuses = data.feedStatuses || {};
+    statuses[feedId] = {
+      status: status,
+      lastChecked: Date.now()
+    };
+    chrome.storage.local.set({ feedStatuses: statuses });
+  });
 }
 
 // Helper to update the badge and icon state
