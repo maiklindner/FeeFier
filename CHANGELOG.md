@@ -2,6 +2,30 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.8.0] - 2026-03-21
+
+### Added
+- **Popup UI Refresh**: Introduced standard tabbed navigation ("News" vs. "Page Feeds") matching the modern suite design.
+- **Granular News Control**: Individual news items can now be marked as read via a new checkmark icon.
+- **Enhanced Management**: Quick-edit interval input and unsubscribe buttons added directly to the Page Feeds tab.
+- **Suite Consistency**: Aligned header styling and empty state branding with TickTab and PagePalette.
+
+### Changed
+- **Mark All Icon**: Updated the "Mark All as Read" icon to a double-check (✓✓).
+
+## [1.7.1] - 2026-03-21
+
+### Fixed
+- **Badge Priority Logic**: Global unread counts now correctly override tab-specific discovery indicators.
+- **URL Normalization**: Discovery filtering now handles trailing slashes and case differences reliably.
+
+## [1.7.0] - 2026-03-21
+
+### Added
+- **Feed Discovery Engine**: Automatically scan websites for RSS/Atom feeds via `<link>` tags and direct feed URLs.
+- **Discovery Indicators**: Real-time blue `+` badge on the extension icon when new feeds are found.
+- **One-Click Subscription**: Basic "Feeds on this page" management in the popup.
+
 ## [1.6.2] - 2026-03-20
 
 ### Changed

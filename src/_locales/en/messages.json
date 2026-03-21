@@ -82,5 +82,23 @@
   },
   "optionsOpenInBackgroundDesc": {
     "message": "When enabled, links from the list will open in the background by default."
+  },
+  "popupDiscoveryTitle": {
+    "message": "Feeds on this page"
+  },
+  "popupSubscribe": {
+    "message": "Subscribe"
+  },
+  "popupSubscribed": {
+    "message": "Subscribed"
+  },
+  "popupTabNews": {
+    "message": "News"
+  },
+  "popupTabDiscovery": {
+    "message": "Page Feeds"
+  },
+  "popupNoFeedsFound": {
+    "message": "No feeds found on this page"
   }
 }

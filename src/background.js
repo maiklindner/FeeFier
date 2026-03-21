@@ -1,5 +1,8 @@
 importScripts('utils.js');
 
+// Track discovered feeds per tab
+const tabFeeds = {};
+
 // Extension installation listener
 chrome.runtime.onInstalled.addListener(() => {
   console.log('Feed Notifier installed or updated.');
@@ -40,8 +43,9 @@ chrome.runtime.onStartup.addListener(() => {
 // Storage change listener
 chrome.storage.onChanged.addListener((changes, namespace) => {
   if (namespace === 'sync' && changes.feeds) {
-    console.log("Feeds changed. Updating alarms.");
+    console.log("Feeds changed. Updating alarms and badge.");
     setupAlarms(changes.feeds.newValue || []);
+    updateBadge();
   }
 });
 
@@ -91,6 +95,38 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       }
     });
     return true; // Keep message channel open for async response
+  }
+
+  if (request.action === 'feedsDiscovered' && sender.tab) {
+    const tabId = sender.tab.id;
+    tabFeeds[tabId] = request.feeds;
+    console.log(`Feeds discovered for tab ${tabId}:`, request.feeds);
+    updateBadge(); // Update badge for the current active tab
+  }
+
+  if (request.action === 'getDiscoveredFeeds') {
+    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+      const activeTabId = tabs[0]?.id;
+      sendResponse({ feeds: tabFeeds[activeTabId] || [] });
+    });
+    return true;
+  }
+});
+
+// Cleanup feeds when tab is closed
+chrome.tabs.onRemoved.addListener((tabId) => {
+  delete tabFeeds[tabId];
+});
+
+// Update badge when switching tabs
+chrome.tabs.onActivated.addListener(() => {
+  updateBadge();
+});
+
+// Refresh badge when a tab finish loading (important for raw feed pages)
+chrome.tabs.onUpdated.addListener((tabId, changeInfo) => {
+  if (changeInfo.status === 'complete') {
+    updateBadge();
   }
 });
 
@@ -219,10 +255,26 @@ function updateFeedStatus(feedId, status) {
 }
 
 // Helper to update the badge and icon state
-function updateBadge(count) {
-  if (count > 0) {
-    chrome.action.setBadgeText({ text: count.toString() });
-    chrome.action.setBadgeBackgroundColor({ color: '#D93025' });
+async function updateBadge(unreadCount = null) {
+  // If unreadCount is not provided, fetch it from storage
+  if (unreadCount === null) {
+    const data = await chrome.storage.local.get({ unreadItems: [] });
+    unreadCount = data.unreadItems.length;
+  }
+
+  // We set the global badge for unread count, but tab-specific for discovery
+  if (unreadCount > 0) {
+    const text = unreadCount.toString();
+    chrome.action.setBadgeText({ text: text });
+    chrome.action.setBadgeBackgroundColor({ color: '#D93025' }); // Red for notifications
+    
+    // Priority: Ensure unread count shows on the active tab by overriding any discovery state
+    const [activeTab] = await chrome.tabs.query({ active: true, currentWindow: true });
+    if (activeTab) {
+      chrome.action.setBadgeText({ text: text, tabId: activeTab.id });
+      chrome.action.setBadgeBackgroundColor({ color: '#D93025', tabId: activeTab.id });
+    }
+
     chrome.action.setIcon({
       path: {
         "16": "icons/icon16-active.png",
@@ -231,18 +283,39 @@ function updateBadge(count) {
       }
     });
   } else {
-    chrome.action.setBadgeText({ text: '' });
+    // No global unread items, check the active tab for discovery
+    const [activeTab] = await chrome.tabs.query({ active: true, currentWindow: true });
+    if (!activeTab) return;
+
+    const activeTabId = activeTab.id;
+    const discoveredFeeds = tabFeeds[activeTabId] || [];
+    
+    // Fetch subscribed feeds to filter discovery
+    const syncData = await chrome.storage.sync.get({ feeds: [] });
+    const normalizeUrl = (u) => u.replace(/\/$/, '').toLowerCase().trim();
+    const subscribedUrls = new Set(syncData.feeds.map(f => normalizeUrl(f.url)));
+    
+    const unreadDiscoveredCount = discoveredFeeds.filter(f => !subscribedUrls.has(normalizeUrl(f.url))).length;
+
+    if (unreadDiscoveredCount > 0) {
+      // Set badge specifically for this tab
+      chrome.action.setBadgeText({ text: '+', tabId: activeTabId });
+      chrome.action.setBadgeBackgroundColor({ color: '#1a73e8', tabId: activeTabId }); // Blue for discovery
+    } else {
+      // Clear badge for this tab
+      chrome.action.setBadgeText({ text: '', tabId: activeTabId });
+    }
+
+    // Ensure icon is back to normal (global)
     chrome.action.setIcon({
-      path: {
-        "16": "icons/icon16.png",
-        "48": "icons/icon48.png",
-        "128": "icons/icon128.png"
-      }
-    });
+        path: {
+          "16": "icons/icon16.png",
+          "48": "icons/icon48.png",
+          "128": "icons/icon128.png"
+        }
+      });
   }
 }
 
 // Initial badge check on load
-chrome.storage.local.get({ unreadItems: [] }, (data) => {
-  updateBadge(data.unreadItems.length);
-});
+updateBadge();
